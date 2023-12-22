@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project source="3.5.0" version="1.0">
-  This file is intended to be loaded by Logisim-evolution (https://github.com/reds-heig/logisim-evolution).
+<project source="3.6.0" version="1.0">
+  This file is intended to be loaded by Logisim-evolution(https://github.com/logisim-evolution/).
 
   <lib desc="#Wiring" name="0">
     <tool name="Splitter">
@@ -204,12 +204,17 @@ end TCL_Generic;
     <a name="appearance" val="logisim_evolution"/>
     <a name="circuit" val="Flags_APSR"/>
     <a name="circuitnamedboxfixedsize" val="false"/>
-    <a name="circuitvhdlpath" val=""/>
     <a name="clabel" val=""/>
     <a name="clabelfont" val="SansSerif bold 16"/>
     <a name="clabelup" val="east"/>
-    <comp lib="0" loc="(210,100)" name="Pin">
+    <a name="downloadFrequency" val="-1.0"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(190,100)" name="Pin">
       <a name="label" val="Flags_In"/>
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="0" loc="(190,60)" name="Pin">
+      <a name="label" val="Update_Mask"/>
       <a name="width" val="4"/>
     </comp>
     <comp lib="0" loc="(210,140)" name="Pin">
@@ -218,15 +223,58 @@ end TCL_Generic;
     <comp lib="0" loc="(210,180)" name="Pin">
       <a name="label" val="Rst"/>
     </comp>
-    <comp lib="0" loc="(210,60)" name="Pin">
-      <a name="label" val="Update_Mask"/>
-      <a name="width" val="4"/>
-    </comp>
-    <comp lib="0" loc="(560,100)" name="Pin">
+    <comp lib="0" loc="(500,110)" name="Constant"/>
+    <comp lib="0" loc="(670,90)" name="Pin">
       <a name="facing" val="west"/>
       <a name="label" val="Flags_Out"/>
       <a name="output" val="true"/>
       <a name="width" val="4"/>
     </comp>
+    <comp lib="1" loc="(370,110)" name="AND Gate">
+      <a name="size" val="30"/>
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="1" loc="(370,70)" name="AND Gate">
+      <a name="negate1" val="true"/>
+      <a name="size" val="30"/>
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="1" loc="(480,90)" name="OR Gate">
+      <a name="size" val="30"/>
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="4" loc="(530,60)" name="Register">
+      <a name="appearance" val="logisim_evolution"/>
+      <a name="width" val="4"/>
+    </comp>
+    <wire from="(190,100)" to="(220,100)"/>
+    <wire from="(190,60)" to="(250,60)"/>
+    <wire from="(210,140)" to="(530,140)"/>
+    <wire from="(210,180)" to="(560,180)"/>
+    <wire from="(220,100)" to="(220,120)"/>
+    <wire from="(220,120)" to="(340,120)"/>
+    <wire from="(250,100)" to="(340,100)"/>
+    <wire from="(250,60)" to="(250,100)"/>
+    <wire from="(250,60)" to="(280,60)"/>
+    <wire from="(280,60)" to="(280,80)"/>
+    <wire from="(280,80)" to="(330,80)"/>
+    <wire from="(320,40)" to="(320,60)"/>
+    <wire from="(320,40)" to="(650,40)"/>
+    <wire from="(320,60)" to="(340,60)"/>
+    <wire from="(330,80)" to="(340,80)"/>
+    <wire from="(370,110)" to="(400,110)"/>
+    <wire from="(370,70)" to="(400,70)"/>
+    <wire from="(400,100)" to="(400,110)"/>
+    <wire from="(400,100)" to="(450,100)"/>
+    <wire from="(400,70)" to="(400,80)"/>
+    <wire from="(400,80)" to="(450,80)"/>
+    <wire from="(480,90)" to="(530,90)"/>
+    <wire from="(500,110)" to="(530,110)"/>
+    <wire from="(530,130)" to="(530,140)"/>
+    <wire from="(530,90)" to="(540,90)"/>
+    <wire from="(560,150)" to="(560,180)"/>
+    <wire from="(590,90)" to="(650,90)"/>
+    <wire from="(650,40)" to="(650,90)"/>
+    <wire from="(650,90)" to="(670,90)"/>
   </circuit>
 </project>
