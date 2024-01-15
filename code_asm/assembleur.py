@@ -3,7 +3,8 @@ from ManagerDeBranche import ManagerDeBranche
 
 
 def traduireRegistre(registre):
-    if registre[0] != "r":
+    registre = registre.strip()
+    if registre[0] != "R":
         raise ValueError
     
     binary = str(format(int(registre[1:]), "b"))
@@ -14,7 +15,8 @@ def traduireRegistre(registre):
     return binary
 
 def estUnRegistre(registre):
-    return registre[0] == "r"
+    registre = registre.strip()
+    return registre[0] == "R"
 
 
 def traduireImmediat(immediat, longueur, shift=1):
@@ -29,6 +31,7 @@ def traduireImmediat(immediat, longueur, shift=1):
     return binary
 
 def estUnImmediat(immediat):
+    immediat = immediat.strip()
     return immediat[0] == "#"
 
 
@@ -58,7 +61,7 @@ def traduireEnHexadecimal(chaine):
     resultat = ""
     for i in range(4):
         resultat += dic.get(chaine[i*4:i*4+4])
-    return resultat;
+    return resultat
 
 
 def traduireEntierEnBinaireComplement2(n, longueur=8):
@@ -105,182 +108,150 @@ def traduireSymboleEgalite(symbole):
         "LE" : "1101",
         "AL" : "1110",
     }
-    return dic.get(symbole.upper())
+    return dic.get(symbole)
         
          
 def traduireInstruction(instruction, managerBranche, numInstruction):
     instruction = instruction.replace(",", " ")
+    instruction = instruction.upper()
     tab = instruction.split(" ")
     tab = [instruction for instruction in tab if instruction != ""]
     
     
-    resultat = ""
+    binaire = ""
     
-    if tab[0].upper() == "LSLS":
+    if tab[0] == "LSLS":
         if(len(tab) == 4):
             binaire = "00000" + traduireImmediat(tab[3], 5) + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-            resultat = traduireEnHexadecimal(binaire)
         else:
             binaire = "0100000010" + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-            resultat = traduireEnHexadecimal(binaire)
     
     
-    elif tab[0].upper() == "LSRS":
+    elif tab[0] == "LSRS":
         if(len(tab) == 4):
             binaire = "00001" + traduireImmediat(tab[3], 5) + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-            resultat = traduireEnHexadecimal(binaire)
         else:
             binaire = "0100000011" + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-            resultat = traduireEnHexadecimal(binaire)
     
     
-    elif tab[0].upper() == "ASRS":
+    elif tab[0] == "ASRS":
         if(len(tab) == 4):
             binaire = "00010" + traduireImmediat(tab[3], 5) + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-            resultat = traduireEnHexadecimal(binaire)
         else:
             binaire = "0100000100" + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-            resultat = traduireEnHexadecimal(binaire)
     
     
-    elif tab[0].upper() == "ADDS":
+    elif tab[0] == "ADDS":
         if(len(tab) == 4):
             if(estUnRegistre(tab[3])):
                 binaire = "0001100" + traduireRegistre(tab[3]) + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-                resultat = traduireEnHexadecimal(binaire)
             else:
                 binaire = "0001110" + traduireImmediat(tab[3], 3) + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-                resultat = traduireEnHexadecimal(binaire)
         else:
             binaire = "00110" + traduireRegistre(tab[1]) + traduireImmediat(tab[2], 8)
-            resultat = traduireEnHexadecimal(binaire)
     
     
-    elif tab[0].upper() == "SUBS":
+    elif tab[0] == "SUBS":
         if(len(tab) == 4):
             if(estUnRegistre(tab[3])):
                 binaire = "0001101" + traduireRegistre(tab[3]) + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-                resultat = traduireEnHexadecimal(binaire)
             else:
                 binaire = "0001111" + traduireImmediat(tab[3], 3) + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-                resultat = traduireEnHexadecimal(binaire)
         else:
             binaire = "00111" + traduireRegistre(tab[1]) + traduireImmediat(tab[2], 8)
-            resultat = traduireEnHexadecimal(binaire)
     
     
-    elif tab[0].upper() == "MOVS":
+    elif tab[0] == "MOVS":
         binaire = "00100" + traduireRegistre(tab[1]) + traduireImmediat(tab[2], 8)
-        resultat = traduireEnHexadecimal(binaire)
         
     
-    elif tab[0].upper() == "CMP":
+    elif tab[0] == "CMP":
         if(estUnRegistre(tab[2])):
             binaire = "0100001010" + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-            resultat = traduireEnHexadecimal(binaire)
         else:
             binaire = "00101" + traduireRegistre(tab[1]) + traduireImmediat(tab[2], 8)
-            resultat = traduireEnHexadecimal(binaire)
      
      
-    elif tab[0].upper() == "ANDS":
+    elif tab[0] == "ANDS":
         binaire = "0100000000" + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-        resultat = traduireEnHexadecimal(binaire)
         
     
-    elif tab[0].upper() == "EORS":
+    elif tab[0] == "EORS":
         binaire = "0100000001" + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-        resultat = traduireEnHexadecimal(binaire)
     
     
-    elif tab[0].upper() == "ADCS":
+    elif tab[0] == "ADCS":
         binaire = "0100000101" + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-        resultat = traduireEnHexadecimal(binaire)
         
     
-    elif tab[0].upper() == "SBCS":
+    elif tab[0] == "SBCS":
         binaire = "0100000110" + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-        resultat = traduireEnHexadecimal(binaire)
         
     
-    elif tab[0].upper() == "RORS":
+    elif tab[0] == "RORS":
         binaire = "0100000111" + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-        resultat = traduireEnHexadecimal(binaire)
         
         
-    elif tab[0].upper() == "TST":
+    elif tab[0] == "TST":
         binaire = "0100001000" + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-        resultat = traduireEnHexadecimal(binaire)
         
     
-    elif tab[0].upper() == "RSBS":
+    elif tab[0] == "RSBS":
         binaire = "0100001001" + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-        resultat = traduireEnHexadecimal(binaire)
 
     
-    elif tab[0].upper() == "CMN":
+    elif tab[0] == "CMN":
         binaire = "0100001011" + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-        resultat = traduireEnHexadecimal(binaire)
         
     
-    elif tab[0].upper() == "ORRS":
+    elif tab[0] == "ORRS":
         binaire = "0100001100" + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-        resultat = traduireEnHexadecimal(binaire)
         
     
-    elif tab[0].upper() == "MULS":
+    elif tab[0] == "MULS":
         binaire = "0100001101" + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-        resultat = traduireEnHexadecimal(binaire)
         
     
-    elif tab[0].upper() == "BICS":
+    elif tab[0] == "BICS":
         binaire = "0100001110" + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-        resultat = traduireEnHexadecimal(binaire)
     
     
-    elif tab[0].upper() == "MVNS":
+    elif tab[0] == "MVNS":
         binaire = "0100001111" + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
-        resultat = traduireEnHexadecimal(binaire)
         
         
-    elif tab[0].upper() == "STR":
+    elif tab[0] == "STR":
         offset = tab[-1][:-1]
-        if "S" in offset.upper():
+        if "S" in offset:
             offset = "#0"
         binaire = "10010" + traduireRegistre(tab[1]) + traduireImmediat(offset, 8, 4)
-        resultat = traduireEnHexadecimal(binaire)
     
     
-    elif tab[0].upper() == "LDR":
+    elif tab[0] == "LDR":
         offset = tab[-1][:-1]
         binaire = "10011" + traduireRegistre(tab[1]) + traduireImmediat(offset, 8, 4)
-        resultat = traduireEnHexadecimal(binaire)
         
     
-    elif tab[0].upper() == "ADD":
+    elif tab[0] == "ADD":
         binaire = "101100000" + traduireImmediat(tab[2], 7, 4)
-        resultat = traduireEnHexadecimal(binaire)
         
     
-    elif tab[0].upper() == "SUB":
+    elif tab[0] == "SUB":
         binaire = "101100001" + traduireImmediat(tab[2], 7, 4)
-        resultat = traduireEnHexadecimal(binaire)
         
 
-    elif tab[0][0].upper() == "B":
-        if tab[0].upper() == "B":
+    elif tab[0][0] == "B":
+        if tab[0] == "B":
             distance = managerBranche.getDistanceEntreDeuxLabels(tab[1], numInstruction)
             binaire = "11100" + traduireEntierEnBinaireComplement2(distance, 11)
-            resultat = traduireEnHexadecimal(binaire)
         else:
             distance = managerBranche.getDistanceEntreDeuxLabels(tab[1], numInstruction)
             binaire = "1101" + traduireSymboleEgalite(tab[0][1:]) + traduireEntierEnBinaireComplement2(distance)
-            resultat = traduireEnHexadecimal(binaire)
     
     else:
         raise NotImplementedError
         
-    return resultat
+    return traduireEnHexadecimal(binaire)
 
 
 source = input("Chemin source: ")

@@ -9,7 +9,7 @@ class ManagerDeBranche:
             if not line:
                 pass
             elif line[0] == ".":
-                self.dic[line.strip()[:-1]] = i
+                self.dic[line.strip()[:-1].upper()] = i
             elif line[0] != "@":
                 i += 1
         file.close()
