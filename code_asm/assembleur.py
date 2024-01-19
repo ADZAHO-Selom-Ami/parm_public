@@ -117,7 +117,6 @@ def traduireInstruction(instruction, managerBranche, numInstruction):
     instruction = instruction.upper()
     tab = instruction.split(" ")
     tab = [instruction for instruction in tab if instruction != ""]
-    print(tab)
     
     binaire = ""
     
@@ -270,7 +269,6 @@ fichierCible.write("v2.0 raw\n")
 i = 0
 for line in file:
     line = line.strip()
-    print(line)
     if line and line[0] != "." and line[0] != "@" and line != "run:":
         print(line + " -> " + traduireInstruction(line, managerBranche, i))
         fichierCible.write(traduireInstruction(line, managerBranche, i) + " ")
