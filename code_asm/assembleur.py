@@ -113,10 +113,11 @@ def traduireSymboleEgalite(symbole):
          
 def traduireInstruction(instruction, managerBranche, numInstruction):
     instruction = instruction.replace(",", " ")
+    instruction = instruction.replace("\t", " ")
     instruction = instruction.upper()
     tab = instruction.split(" ")
     tab = [instruction for instruction in tab if instruction != ""]
-    
+    print(tab)
     
     binaire = ""
     
@@ -269,7 +270,8 @@ fichierCible.write("v2.0 raw\n")
 i = 0
 for line in file:
     line = line.strip()
-    if line and line[0] != "." and line[0] != "@":
+    print(line)
+    if line and line[0] != "." and line[0] != "@" and line != "run:":
         print(line + " -> " + traduireInstruction(line, managerBranche, i))
         fichierCible.write(traduireInstruction(line, managerBranche, i) + " ")
         i += 1
