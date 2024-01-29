@@ -4,3 +4,4 @@ code_c/draft
 .idea
 out/
 *.gz
+.vscode/settings.json
