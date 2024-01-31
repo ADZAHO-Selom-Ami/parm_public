@@ -10,7 +10,7 @@ class ManagerDeBranche:
                 pass
             elif line[0] == ".":
                 self.dic[line.strip()[:-1].upper()] = i
-            elif line[0] != "@":
+            elif line[0] != "@"  and line != "run:" and line[0] != "p":
                 i += 1
         file.close()
         

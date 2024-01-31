@@ -28,7 +28,7 @@ run:
 	.save	{r4, r5, r7, lr}
 	push	{r4, r5, r7, lr}
 	.setfp	r7, sp, #8
-	add	r7, sp, #8
+	.add	r7, sp, #8
 	.pad	#188
 	sub	sp, #188
 	@APP

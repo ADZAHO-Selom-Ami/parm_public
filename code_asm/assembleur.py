@@ -54,7 +54,10 @@ def traduireInstruction(instruction, managerBranche=None, numInstruction=0):
     
     
     elif tab[0] == "MOVS":
-        binaire = "00100" + traduireRegistre(tab[1]) + traduireImmediat(tab[2], 8)
+        if estUnImmediat(tab[2]):
+            binaire = "00100" + traduireRegistre(tab[1]) + traduireImmediat(tab[2], 8)
+        else:
+            binaire = "0100000010" + traduireRegistre(tab[2]) + traduireRegistre(tab[1])
         
     
     elif tab[0] == "CMP":
@@ -120,8 +123,12 @@ def traduireInstruction(instruction, managerBranche=None, numInstruction=0):
     
     
     elif tab[0] == "LDR":
-        offset = tab[-1][:-1]
-        binaire = "10011" + traduireRegistre(tab[1]) + traduireImmediat(offset, 8, 4)
+        print(tab)
+        if(tab[-1] == "[SP]"):
+            binaire = "10011" + traduireRegistre(tab[1]) + "00000000"
+        else:
+            offset = tab[-1][:-1]
+            binaire = "10011" + traduireRegistre(tab[1]) + traduireImmediat(offset, 8, 4)
         
     
     elif tab[0] == "ADD":
@@ -162,9 +169,11 @@ if __name__ == "__main__":
     i = 0
     for line in file:
         line = line.strip()
-        if line and line[0] != "." and line[0] != "@" and line != "run:":
+        if line and line[0] != "." and line[0] != "@" and line != "run:" and line[0] != "p":
+            print(line)
             print(line + " -> " + traduireInstruction(line, managerBranche, i))
             fichierCible.write(traduireInstruction(line, managerBranche, i) + " ")
             i += 1
-            
+    
+    fichierCible.write("\n")  
     print("SUCCESS")
