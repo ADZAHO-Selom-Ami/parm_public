@@ -123,7 +123,6 @@ def traduireInstruction(instruction, managerBranche=None, numInstruction=0):
     
     
     elif tab[0] == "LDR":
-        print(tab)
         if(tab[-1] == "[SP]"):
             binaire = "10011" + traduireRegistre(tab[1]) + "00000000"
         else:
